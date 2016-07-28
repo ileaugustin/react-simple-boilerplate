@@ -8,35 +8,59 @@ class FolderContainer extends Component{
         var index = index || 0;
         return (
             <li className="folder-wrapper">
-                <FolderContainer items = {obj} key={++index}/>
+                <FolderContainer items = {obj} key={Math.floor(Math.random()*100)}/>
             </li>
         );
     }
 
     render (){
-        var index = new Date().getMilliseconds();
+        //var index = new Date().getMilliseconds();
         // console.log(index);
         // console.log(++index);
-        var items = this.props.items;
+        var counter = Math.floor(Math.random()*100);
+        var immutable = require('immutable');
+        var items = immutable.List(this.props.items);
         let output = [];
-        for (var i in items) {
+        //var items = immutable.fromJS(this.props.items);
+        // for (var i in items) {
+        //
+        //     var item = items[i];
+        //
+        //     if(item.type == 'dir')
+        //     {
+        //         output.push(<FolderItem name={item.name}/>);
+        //     }
+        //     else if(item.type == 'file')
+        //     {
+        //         output.push(<FileItem name={item.name}/>);
+        //     }
+        //
+        //     if (item.children) {
+        //         output.push(this.renderChildren(item.children));
+        //     }
+        //
+        // }
+        //console.log(items);
+        items.map((value,index)=>{
+            //console.log(Math.floor(Math.random()*100));
+            var item = value;
 
-            var item = items[i];
-
+            //console.log(item.children);
             if(item.type == 'dir')
             {
-                output.push(<FolderItem name={item.name} key={index++}/>);
+                output.push(<FolderItem name={item.name} key={index}/>);
+                //console.log(output);
             }
             else if(item.type == 'file')
             {
-                output.push(<FileItem name={item.name} key={index++}/>);
+                output.push(<FileItem name={item.name} key={index}/>);
             }
 
             if (item.children) {
-                output.push(this.renderChildren(item.children,index++));
+                output.push(this.renderChildren(item.children,index));
             }
 
-        }
+        });
         return (
             <ul className="folder-container">{output}</ul>
         );
@@ -44,3 +68,5 @@ class FolderContainer extends Component{
 }
 
 export default FolderContainer;
+
+
