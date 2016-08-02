@@ -7,7 +7,14 @@ require("../styles/application.scss");
 
 import ReactDOM from 'react-dom';
 import React from 'react'
+//import actions from './actions.jsx'
+import reactor from './reactor.jsx'
+import ItemStore from './ItemStore.jsx'
 
 import App from './App.jsx';
+
+reactor.registerStores({
+    'items' : ItemStore
+});
 
 ReactDOM.render(<App />, document.getElementById('root'));
